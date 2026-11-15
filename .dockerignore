@@ -1,0 +1,9 @@
+.git
+.venv
+frontend
+**/.env*
+**/.astra_private
+**/__pycache__
+**/*.sqlite*
+**/*.key
+**/*.pem

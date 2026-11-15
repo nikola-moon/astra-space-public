@@ -1,0 +1,41 @@
+{
+  "expo": {
+    "name": "ASTRA Space",
+    "slug": "astra-space",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#14213D",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "output": "single"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "ASTRA Space accède à vos photos pour que vous puissiez ajouter des photos de vos proches dans votre espace personnel."
+        }
+      ],
+      "expo-font"
+    ],
+    "scheme": "astraspace",
+    "backgroundColor": "#F2F4F8",
+    "experiments": {
+      "typedRoutes": false
+    }
+  }
+}

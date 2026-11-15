@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>ASTRA Space · Espace astronaute</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="/"><span class="mark" aria-hidden="true">✦</span> ASTRA <span>SPACE</span></a>
+    <span class="top-note">Station simulée · Données fictives</span>
+    <a class="quiet" href="/">Compagnon Expo</a>
+    <a class="quiet" href="/presentation">Présentation</a>
+    <button id="logout" class="quiet" hidden>Changer de profil</button>
+  </header>
+  <main>
+    <section id="signin" class="sign-in">
+      <p class="eyebrow">Poste de bord</p>
+      <h1>Espace astronaute</h1>
+      <p class="muted">Choisissez votre profil pour retrouver votre programme et votre compagnon.</p>
+      <form id="login-form">
+        <label for="crew">Profil</label>
+        <select id="crew"><option value="ines">Inès Diallo</option><option value="malik">Malik Chen</option></select>
+        <button class="primary" type="submit">Ouvrir mon espace</button>
+      </form>
+      <p class="muted small">Chaque navigateur ouvre son propre espace d’essai pour 30 minutes. Utilisez uniquement les scénarios fictifs.</p>
+      <p id="login-message" class="error" role="alert"></p>
+    </section>
+    <section id="workspace" hidden>
+      <div class="welcome">
+        <div><p class="eyebrow">Espace personnel</p><h1 id="profile-name"></h1></div>
+        <p class="sync" id="sync" aria-live="polite"></p>
+      </div>
+      <nav class="tabs" aria-label="Espace astronaute">
+        <button id="follow-tab" class="tab" aria-pressed="true" aria-controls="follow">Mon suivi</button>
+        <button id="cat-tab" class="tab" aria-pressed="false" aria-controls="cat">Mon chat</button>
+      </nav>
+      <p id="status" class="inline-status" role="status" hidden></p>
+      <section id="follow" aria-labelledby="follow-tab">
+        <div class="grid">
+          <section class="card">
+            <p class="eyebrow">Vélo CEVIS</p>
+            <h2>Dernière séance</h2>
+            <p class="muted" id="session-date"></p>
+            <dl class="metrics">
+              <div><dt>Puissance mesurée</dt><dd id="power"></dd></div>
+              <div><dt>Objectif de la séance</dt><dd id="target"></dd></div>
+              <div><dt>Effort ressenti</dt><dd id="effort"></dd></div>
+            </dl>
+            <p id="measures-extra" class="muted small"></p>
+            <p id="summary"></p>
+          </section>
+          <section class="card plan">
+            <p class="eyebrow">Vélo CEVIS</p>
+            <h2>Programme en vigueur</h2>
+            <p id="plan-values" class="plan-values"></p>
+            <p id="plan-status" class="plan-status"></p>
+          </section>
+          <section class="card">
+            <h2>Historique</h2>
+            <div class="table-wrap"><table><thead><tr><th scope="col">Date</th><th scope="col">Mesurée</th><th scope="col">Cible</th><th scope="col">Suivi</th></tr></thead><tbody id="history"></tbody></table></div>
+          </section>
+          <section class="card">
+            <h2>Discuter avec ASTRA</h2>
+            <p class="muted small">Explications locales à partir de votre dossier.</p>
+            <div class="actions">
+              <button data-topic="observations">Qu’a mesuré CEVIS ?</button>
+              <button data-topic="adjustment">Pourquoi cet ajustement ?</button>
+              <button data-topic="plan">Quel est mon programme ?</button>
+            </div>
+            <div id="conversation" class="conversation" role="log" aria-label="Discussion avec ASTRA"></div>
+          </section>
+        </div>
+        <details class="accordion">
+          <summary>Signaler un problème à bord</summary>
+          <form id="report-form" class="line-form">
+            <label for="report-kind">Motif simulé</label>
+            <select id="report-kind"><option>Gêne signalée après une séance</option><option>Appareil indisponible</option><option>Demande de contact à bord</option></select>
+            <button type="submit" class="primary">Enregistrer</button>
+          </form>
+          <p id="report-message" role="status"></p>
+          <ul id="my-reports" class="report-list"></ul>
+        </details>
+      </section>
+      <section id="cat" aria-labelledby="cat-tab" hidden>
+        <div class="grid cat-grid">
+          <section class="card cat-card">
+            <div id="cat-portrait" class="portrait" data-age="Bébé">
+              <div id="cat-icon" class="cat-icon" role="img" aria-label="Nova, le chat"></div>
+            </div>
+            <div class="cat-title"><h2>Nova</h2><span id="cat-age" class="pill"></span></div>
+            <p id="cat-progress-text"></p>
+            <progress id="cat-progress" max="5" value="0" aria-label="Croissance de Nova"></progress>
+            <div class="actions"><button id="pet">Caresser Nova</button><button id="play">Jouer avec Nova</button></div>
+            <p id="cat-reaction" class="muted" role="status"></p>
+          </section>
+          <div class="stack">
+            <section class="card">
+              <h2>Rappels du programme</h2>
+              <p id="reminder-status"></p>
+              <div id="reminder" class="reminder" hidden>
+                <p id="reminder-text"></p>
+                <button id="dismiss-reminder">Masquer</button>
+              </div>
+            </section>
+            <section class="card">
+              <h2>Photos de mes proches</h2>
+              <p class="muted small">Galerie conservée dans ce navigateur, pour le profil actif.</p>
+              <label for="photo" class="photo-label">Choisir une photo</label>
+              <input id="photo" type="file" accept="image/jpeg,image/png,image/webp">
+              <figure id="photo-frame" hidden><img id="photo-preview" alt="Photo personnelle choisie"></figure>
+              <button id="remove-photo" hidden>Retirer la photo</button>
+              <p id="photo-message" role="status"></p>
+            </section>
+          </div>
+        </div>
+      </section>
+      <details class="accordion station">
+        <summary>Console de simulation à bord</summary>
+        <p class="muted small">Commandes du présentateur.</p>
+        <div class="actions">
+          <button data-action="import" data-sample="3">Importer la séance 3</button>
+          <button data-action="draft">Calculer l’ajustement</button>
+          <button data-action="specialist">Simuler la revue spécialiste</button>
+          <button data-action="approve">Simuler l’approbation de bord</button>
+        </div>
+        <div class="actions">
+          <button data-action="import" data-sample="4">Importer la séance 4</button>
+          <button data-action="import" data-sample="5">Importer la séance 5</button>
+          <button data-action="work">Mode travail</button><button data-action="rest">Mode repos</button>
+          <button id="station-reports-button">Voir la file de bord</button>
+        </div>
+        <p id="station-message" role="status"></p>
+        <ul id="station-reports" class="report-list"></ul>
+      </details>
+    </section>
+  </main>
+</body>
+</html>
